@@ -11,6 +11,7 @@ class MoviesDetailsQuery
   def all
     merge_movie_ratings
     format_budget
+    format_ratings
   end
 
   private
@@ -39,5 +40,16 @@ class MoviesDetailsQuery
   def format_budget
     return [] if data.nil?
     data.merge!(budget: number_to_currency(data[:budget]))
+  end
+
+  def format_ratings
+    return [] if data.nil? # Added this guard after the fact to allow the test suite to run greem
+    res = get_ombd_data(data[:imdbId])
+    data.merge!(rating: { db: data[:rating], omdb: res["imdbRating"] }) if data[:imdbId] == res["imdbID"]
+  end
+
+  def get_ombd_data(imdb_id)
+    res = RestClient.get("http://www.omdbapi.com/?apikey=ceb9bf8c&i=#{imdb_id}")
+    JSON.parse(res.body)
   end
 end

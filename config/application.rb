@@ -7,6 +7,7 @@ require 'pry'
 require 'rack/test'
 require 'sequel'
 require 'will_paginate/array'
+require 'rest-client'
 
 require_relative '../app/helpers/format_helper.rb'
 require_relative '../app/helpers/database_helper.rb'

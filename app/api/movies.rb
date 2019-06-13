@@ -21,8 +21,12 @@ module API
         requires :id, coerce: Integer, desc: 'Search movie details'
       end
       get ':id/details' do
-        Movie
-          .find_details(params[:id])
+        data = Movie.find_details(params[:id])
+        if !data.empty?
+          data
+        else
+          error!(:not_found, 404)
+        end
       end
 
       namespace :search do
@@ -30,7 +34,7 @@ module API
           optional :page, type: String
           optional :year, type: String, regexp: /^\d{4}/
           optional :genre, type: String
-          optional :order, type: String, default: 'DESC'
+          optional :order, type: String, default: 'ASC'
         end
 
         get do

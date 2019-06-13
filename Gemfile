@@ -8,6 +8,7 @@ gem 'grape'
 gem 'sqlite3'
 gem 'sequel'
 gem 'will_paginate', '~> 3.1.0'
+gem 'rest-client'
 
 # Development
 gem 'pry'
