@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class MoviesSearchQuery
-  def self.all(params, conn)
-    new(params, conn).all
-  end
-
   def initialize(params, conn)
     @params = params
     @conn = conn

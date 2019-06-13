@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe MoviesSearchQuery, type: :query do
   let(:conn) { Movie.connect('./db/movies_test.db') }
-  let(:call) { MoviesSearchQuery.all(params, conn) }
+  let(:call) { MoviesSearchQuery.new(params, conn).all }
 
   describe '.all' do
     let(:params) { { genres: 'Action' } }

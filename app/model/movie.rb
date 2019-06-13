@@ -8,19 +8,14 @@ class Movie
   connect('./db/movies.db')
 
   def self.all
-    @db[
-      <<-SQL
-        SELECT imdbId, title, genres, releaseDate, budget
-        FROM movies
-      SQL
-    ].all
+    MoviesQuery.new(@db).all
   end
 
   def self.find_details(id)
-    MoviesDetailsQuery.all(id, @db)
+    MoviesDetailsQuery.new(id, @db).all
   end
 
   def self.search(params)
-    MoviesSearchQuery.all(params, @db)
+    MoviesSearchQuery.new(params, @db).all
   end
 end
