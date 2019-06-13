@@ -8,11 +8,13 @@ module API
       format :json
 
       params do
-        optional :page, type: String, default: 1
+        optional :page, type: String
       end
 
       get do
-        { "hello": "index" }
+        Movie
+          .all
+          .paginate(page: (params[:page] || 1).to_i)
       end
 
       params do
@@ -24,13 +26,16 @@ module API
 
       namespace :search do
         params do
-          optional :page, type: String, default: 1
-          optional :year, type: String, desc: 'Year in YYYY-MM-DD format', regexp: /^\d{4}/
-          optional :genre, type: String, desc: 'Genre; Crime, Action'
+          optional :page, type: String
+          optional :year, type: String, regexp: /^\d{4}/
+          optional :genre, type: String
+          optional :order, type: String, default: 'DESC'
         end
 
         get do
-          { "hello": "search" }
+          Movie
+            .search(params)
+            .paginate(page: (params[:page] || 1).to_i)
         end
       end
     end
