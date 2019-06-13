@@ -29,6 +29,7 @@ class MoviesDetailsQuery
   end
 
   def merge_movie_ratings
+    return [] if movie_details.empty?
     @data = rating.each_with_object(movie_details[0]) do |rating, details|
       details.merge!(rating: rating[:rating]) if rating[:movieId] == details[:movieId]
       details.except!(:movieId)
@@ -36,6 +37,7 @@ class MoviesDetailsQuery
   end
 
   def format_budget
-    @data.merge!(budget: number_to_currency(@data[:budget]))
+    return [] if data.nil?
+    data.merge!(budget: number_to_currency(data[:budget]))
   end
 end
