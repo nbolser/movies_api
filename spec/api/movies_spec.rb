@@ -48,8 +48,20 @@ describe API::Movies, type: :request do
     end
 
     context '/movies/:id/details' do
+      it 'returns a 400 Not Foud when id is not passed' do
+        get '/movies/x/details'
+
+        expect(last_response.status).to(eq(400))
+      end
+
       it 'returns a 200 OK' do
-        get '/movies/1/details'
+        get '/movies/1421/details'
+
+        expect(last_response.status).to(eq(200))
+      end
+
+      it 'returns a 200 OK' do
+        get '/movies/1421/details'
 
         expect(last_response.status).to(eq(200))
       end

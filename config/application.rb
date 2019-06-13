@@ -10,7 +10,9 @@ require 'will_paginate/array'
 
 require_relative '../app/helpers/database_helper.rb'
 require_relative '../app/queries/movies_search_query.rb'
+require_relative '../app/queries/movies_details_query.rb'
 require_relative '../app/api/movies.rb'
 require_relative '../app/model/movie.rb'
+require_relative '../app/model/rating.rb'
 
 WillPaginate.per_page = 50

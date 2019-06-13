@@ -21,7 +21,8 @@ module API
         requires :id, coerce: Integer, desc: 'Search movie details'
       end
       get ':id/details' do
-        { "hello": "details" }
+        Movie
+          .find_details(params[:id])
       end
 
       namespace :search do

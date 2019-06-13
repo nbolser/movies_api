@@ -16,6 +16,10 @@ class Movie
     ].all
   end
 
+  def self.find_details(id)
+    MoviesDetailsQuery.all(id, @db)
+  end
+
   def self.search(params)
     MoviesSearchQuery.all(params, @db)
   end
